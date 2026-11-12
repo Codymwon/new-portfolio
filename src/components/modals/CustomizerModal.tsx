@@ -14,6 +14,8 @@ export default function CustomizerModal() {
   const backendStack = usePortfolioStore((s) => s.backendStack);
   const setProfile = usePortfolioStore((s) => s.setProfile);
   const showToast = usePortfolioStore((s) => s.showToast);
+  const heroFont = usePortfolioStore((s) => s.heroFont);
+  const setHeroFont = usePortfolioStore((s) => s.setHeroFont);
 
   const [formFirstName, setFormFirstName] = useState(firstName);
   const [formLastName, setFormLastName] = useState(lastName);
@@ -103,6 +105,36 @@ export default function CustomizerModal() {
           >
             Load Default Placeholder (Alex Mercer)
           </button>
+        </div>
+
+        {/* Hero Title Typeface Selection */}
+        <div className="mt-4 pt-3 border-t border-white/10">
+          <div className="text-[11px] font-mono text-neutral-400 mb-2">HERO TITLE TYPEFACE:</div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {[
+              { id: 'display', label: 'Space Grotesk', desc: 'Architectural (Recommended)' },
+              { id: 'syne', label: 'Syne', desc: 'Avant-Garde' },
+              { id: 'spaceMono', label: 'Space Mono', desc: 'Retro-Futurist' },
+              { id: 'mono', label: 'Fira Code', desc: 'IDE Monospace' },
+            ].map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => {
+                  setHeroFont(f.id as any);
+                  showToast(`Switched Hero Typeface to ${f.label}`);
+                }}
+                className={`px-2.5 py-2 rounded-xl border text-left transition ${
+                  heroFont === f.id
+                    ? 'border-white bg-white/15 text-white shadow'
+                    : 'border-white/15 bg-white/5 text-neutral-400 hover:text-white hover:border-white/30'
+                }`}
+              >
+                <div className="font-bold text-xs">{f.label}</div>
+                <div className="text-[9px] opacity-70 mt-0.5">{f.desc}</div>
+              </button>
+            ))}
+          </div>
         </div>
 
         <form id="customizerForm" onSubmit={handleSubmit} className="mt-5 space-y-4 text-xs font-mono">

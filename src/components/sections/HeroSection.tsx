@@ -2,15 +2,37 @@
 
 import React from 'react';
 import HeroAsciiCanvas from '@/components/canvas/HeroAsciiCanvas';
-import { usePortfolioStore } from '@/stores/usePortfolioStore';
+import { usePortfolioStore, HeroFontChoice } from '@/stores/usePortfolioStore';
 
 export default function HeroSection() {
   const lang = usePortfolioStore((s) => s.lang);
+  const heroFont = usePortfolioStore((s) => s.heroFont);
+  const cycleHeroFont = usePortfolioStore((s) => s.cycleHeroFont);
   const showToast = usePortfolioStore((s) => s.showToast);
 
   const handleSocialClick = (e: React.MouseEvent<HTMLAnchorElement>, platform: string) => {
     e.preventDefault();
     showToast(`Placeholder ${platform} link — editable in "Edit Details"`);
+  };
+
+  const fontConfig: Record<HeroFontChoice, { fontClass: string; tracking: string; label: string }> = {
+    display: { fontClass: 'font-display', tracking: 'tracking-[-0.04em]', label: 'Space Grotesk' },
+    syne: { fontClass: 'font-syne', tracking: 'tracking-[-0.025em]', label: 'Syne' },
+    spaceMono: { fontClass: 'font-spaceMono', tracking: 'tracking-tight', label: 'Space Mono' },
+    mono: { fontClass: 'font-mono', tracking: 'tracking-tight', label: 'Fira Code' },
+  };
+
+  const currentFont = fontConfig[heroFont] || fontConfig.display;
+
+  const handleFontCycle = () => {
+    cycleHeroFont();
+    const nextFonts: Record<HeroFontChoice, string> = {
+      display: 'Syne (Avant-Garde)',
+      syne: 'Space Mono (Retro-Futurist)',
+      spaceMono: 'Fira Code (IDE Monospace)',
+      mono: 'Space Grotesk (Architectural)',
+    };
+    showToast(`Hero Typeface: ${nextFonts[heroFont]}`);
   };
 
   return (
@@ -22,9 +44,16 @@ export default function HeroSection() {
 
         {/* Top Display Typography Layer (Full-stack / Projects / Developer) */}
         <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-12 grid grid-cols-1 lg:grid-cols-12 gap-y-4 gap-x-6 items-center pointer-events-none">
-          {/* Row 1 Left: "Full-stack" with smooth entry animation */}
+          {/* Row 1 Left: "Full-stack" with architectural Space Grotesk typography */}
           <div className="lg:col-span-8 animate-fade-in-up">
-            <h1 id="heroTitleLine1" className="font-mono text-5xl sm:text-7xl md:text-[96px] font-bold tracking-tight leading-none text-white drop-shadow-[0_4px_28px_rgba(0,0,0,0.95)] select-none">
+            <div className="flex items-center gap-2 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400 mb-2 select-none">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>SYS // ARCHITECTURE & CREATIVE SYSTEMS</span>
+            </div>
+            <h1
+              id="heroTitleLine1"
+              className={`${currentFont.fontClass} text-5xl sm:text-7xl md:text-[104px] font-bold ${currentFont.tracking} leading-[0.92] text-white hero-headline-text select-none`}
+            >
               {lang === 'ge' ? 'Full-Stack' : 'Full-stack'}
             </h1>
           </div>
@@ -46,16 +75,37 @@ export default function HeroSection() {
             </a>
           </div>
 
-          {/* Row 2 Left: Mission Quote with Italicized Highlights */}
+          {/* Row 2 Left: Mission Quote + Font Style Switcher Pill */}
           <div className="lg:col-span-5 order-3 lg:order-2 pt-2 animate-fade-in-up animate-delay-300">
             <p id="heroSubtitle" className="text-sm sm:text-[15px] text-neutral-200 leading-relaxed max-w-sm drop-shadow-[0_2px_14px_rgba(0,0,0,0.98)]">
               My goal is to <em className="text-white font-serif italic">write maintainable, clean</em> and <em className="text-white font-serif italic">understandable code</em> so process development was enjoyable.
             </p>
+            {/* Quick Typeface Switcher Pill */}
+            <div className="mt-3 pointer-events-auto">
+              <button
+                type="button"
+                onClick={handleFontCycle}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/20 bg-black/60 hover:bg-black/90 backdrop-blur-md text-[10px] font-mono text-neutral-300 hover:text-white hover:border-white/40 transition duration-200 active:scale-95 shadow-lg"
+                title="Click to preview alternative hero title typefaces (Space Grotesk / Syne / Space Mono / Fira Code)"
+              >
+                <span className="text-neutral-400">Typeface:</span>
+                <span className="text-white font-semibold">{currentFont.label}</span>
+                <span className="text-neutral-400 ml-0.5">⟳</span>
+              </button>
+            </div>
           </div>
 
-          {/* Row 2 Right: "Developer" with staggered entrance */}
+          {/* Row 2 Right: "Developer" with staggered entrance & architectural styling */}
           <div className="lg:col-span-7 order-2 lg:order-3 lg:text-right animate-fade-in-up animate-delay-150">
-            <div id="heroTitleLine2" className="font-mono text-5xl sm:text-7xl md:text-[96px] font-bold tracking-tight leading-none text-white drop-shadow-[0_4px_28px_rgba(0,0,0,0.95)] select-none">
+            <div className="hidden sm:flex items-center lg:justify-end gap-2 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400 mb-2 select-none">
+              <span>INDEX // 47K STIPPLED PARTICLES</span>
+              <span className="text-white/40">•</span>
+              <span className="text-neutral-300">EST. 2026</span>
+            </div>
+            <div
+              id="heroTitleLine2"
+              className={`${currentFont.fontClass} text-5xl sm:text-7xl md:text-[104px] font-bold ${currentFont.tracking} leading-[0.92] text-white hero-headline-text select-none`}
+            >
               {lang === 'ge' ? 'Entwickler' : 'Developer'}
             </div>
           </div>

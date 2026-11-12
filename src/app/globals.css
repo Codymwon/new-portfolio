@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -123,6 +123,15 @@ html.light-theme .work-row.active-row .work-muted {
 .interactive-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 14px 34px -8px rgba(0, 0, 0, 0.7);
+}
+
+/* Hero Display Title Typographic Treatment */
+.hero-headline-text {
+  text-shadow: 0 4px 36px rgba(0, 0, 0, 0.95);
+}
+
+html.light-theme .hero-headline-text {
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
 }
 
 /* Stagger animation delay helper classes */

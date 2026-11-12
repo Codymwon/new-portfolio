@@ -9,6 +9,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        display: ['"Space Grotesk"', 'sans-serif'],
+        syne: ['"Syne"', 'sans-serif'],
+        spaceMono: ['"Space Mono"', 'monospace'],
         mono: ['"Fira Code"', '"Space Mono"', 'monospace'],
         sans: ['"Inter"', 'sans-serif'],
         pixel: ['"Press Start 2P"', 'monospace'],

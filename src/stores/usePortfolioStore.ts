@@ -9,6 +9,8 @@ export interface DetailModalState {
   showForm: boolean;
 }
 
+export type HeroFontChoice = 'display' | 'syne' | 'spaceMono' | 'mono';
+
 interface PortfolioState {
   firstName: string;
   lastName: string;
@@ -20,6 +22,7 @@ interface PortfolioState {
   devopsStack: string;
   isLight: boolean;
   lang: 'en' | 'ge';
+  heroFont: HeroFontChoice;
   activeFilter: 'all' | 'frontend' | 'backend' | 'devops';
   activeArticleIndex: number;
   activeWorkIndex: number;
@@ -42,6 +45,8 @@ interface PortfolioState {
   }>) => void;
   toggleTheme: () => void;
   setLang: (lang: 'en' | 'ge') => void;
+  setHeroFont: (heroFont: HeroFontChoice) => void;
+  cycleHeroFont: () => void;
   setFilter: (filter: 'all' | 'frontend' | 'backend' | 'devops') => void;
   setActiveArticleIndex: (idx: number | ((prev: number) => number)) => void;
   setActiveWorkIndex: (idx: number) => void;
@@ -66,6 +71,7 @@ export const usePortfolioStore = create<PortfolioState>((set) => ({
   devopsStack: 'Nginx / Brotli / Docker / (CI/CD) / k8s / bash',
   isLight: false,
   lang: 'en',
+  heroFont: 'display', // Space Grotesk (Architectural display font)
   activeFilter: 'all',
   activeArticleIndex: 0,
   activeWorkIndex: 1,
@@ -95,6 +101,12 @@ export const usePortfolioStore = create<PortfolioState>((set) => ({
     return { isLight: next };
   }),
   setLang: (lang) => set({ lang }),
+  setHeroFont: (heroFont) => set({ heroFont }),
+  cycleHeroFont: () => set((s) => {
+    const fonts: HeroFontChoice[] = ['display', 'syne', 'spaceMono', 'mono'];
+    const next = fonts[(fonts.indexOf(s.heroFont) + 1) % fonts.length];
+    return { heroFont: next };
+  }),
   setFilter: (activeFilter) => set({ activeFilter }),
   setActiveArticleIndex: (updater) => set((s) => ({
     activeArticleIndex: typeof updater === 'function' ? updater(s.activeArticleIndex) : updater,
