@@ -32,16 +32,16 @@ export default function AboutSkillsSection() {
   };
 
   return (
-    <section id="about" className="py-16 border-t border-white/10 relative">
+    <section id="about" className="py-16 border-t border-glacier/30 relative">
       {/* Top Row: `... /About me ...` + Bio Intro */}
       <ScrollReveal className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-        <div className="md:col-span-5 font-mono text-xs sm:text-sm text-neutral-400">
+        <div className="md:col-span-5 font-mono text-xs sm:text-sm text-ultraviolet font-bold">
           ... /About me ...
         </div>
         <div className="md:col-span-7">
-          <p id="aboutIntroText" className="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-md">
-            Hello! I&apos;m <span id="aboutNameInline" className="text-white font-medium">{firstName}</span>, I&apos;m a <em className="italic font-serif text-white">full-stack developer</em>.<br />
-            More than <em id="aboutYearsInline" className="italic font-serif text-white">{yearsExp}</em> experience.
+          <p id="aboutIntroText" className="text-base sm:text-lg text-[#334155] leading-relaxed max-w-md font-medium">
+            Hello! I&apos;m <span id="aboutNameInline" className="text-ultraviolet font-bold">{firstName}</span>, I&apos;m a <em className="italic font-serif text-ultraviolet font-bold">full-stack developer</em>.<br />
+            More than <em id="aboutYearsInline" className="italic font-serif text-[#0F172A] font-bold">{yearsExp}</em> experience.
           </p>
         </div>
       </ScrollReveal>
@@ -50,20 +50,20 @@ export default function AboutSkillsSection() {
       <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* Left Column: 4 Asymmetric Skill Cards with staggered scroll reveals */}
         <div className="lg:col-span-7 space-y-5">
-          {/* Card 1: Front-end */}
+          {/* Card 1: Front-end (Glacier Blue Card Accent) */}
           <ScrollReveal delay={100} distance={18}>
             <div
               data-skill-group="frontend"
               onClick={() => handleSkillCardClick('frontend')}
-              className="skill-card group cursor-pointer rounded-3xl p-6 bg-[#f2f2ef] text-[#0d0d0d] border border-white transition-all duration-300 transform hover:-translate-y-1.5 hover:shadow-[0_12px_32px_rgba(255,255,255,0.15)] shadow-xl active:scale-[0.99]"
+              className="skill-card group cursor-pointer rounded-3xl p-6 bg-glacier text-[#0F172A] border border-glacier/80 transition-all duration-300 transform hover:-translate-y-1.5 hover:shadow-[0_12px_32px_rgba(111,61,255,0.2)] shadow-lg active:scale-[0.99]"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-sm font-bold tracking-tight">Front-end</span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/10 text-black/80 group-hover:bg-black group-hover:text-white transition duration-200">
+                <span className="font-mono text-sm font-bold tracking-tight text-[#0F172A]">Front-end</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-ultraviolet text-white font-medium group-hover:bg-[#0F172A] group-hover:text-glacier transition duration-200">
                   Click to filter projects ↓
                 </span>
               </div>
-              <p id="skillsFrontend" className="font-mono text-xs sm:text-[13px] leading-relaxed text-neutral-800">
+              <p id="skillsFrontend" className="font-mono text-xs sm:text-[13px] leading-relaxed text-[#1E293B] font-semibold">
                 {frontendStack}
               </p>
             </div>
@@ -75,10 +75,10 @@ export default function AboutSkillsSection() {
               <div
                 data-skill-group="styles"
                 onClick={() => handleSkillCardClick('styles')}
-                className="skill-card sm:col-span-7 cursor-pointer rounded-3xl p-5 bg-[#151515] hover:bg-[#1e1e1e] border border-white/15 hover:border-white/35 transition-all duration-300 transform hover:-translate-y-1 active:scale-[0.99]"
+                className="skill-card sm:col-span-7 cursor-pointer rounded-3xl p-5 bg-white hover:bg-white/95 border border-glacier/70 transition-all duration-300 transform hover:-translate-y-1 shadow-md active:scale-[0.99]"
               >
-                <div className="font-mono text-sm font-semibold text-neutral-200 mb-2">Styles</div>
-                <p id="skillsStyles" className="font-mono text-xs leading-relaxed text-neutral-400">
+                <div className="font-mono text-sm font-bold text-ultraviolet mb-2">Styles</div>
+                <p id="skillsStyles" className="font-mono text-xs leading-relaxed text-[#475569] font-medium">
                   {stylesStack}
                 </p>
               </div>
@@ -87,7 +87,7 @@ export default function AboutSkillsSection() {
               <div className="sm:col-span-5 flex items-center justify-center sm:justify-center">
                 <a
                   href="#projects"
-                  className="w-11 h-11 rounded-full border border-white/25 bg-[#181818] flex items-center justify-center text-white hover:bg-white hover:text-black transition duration-200 transform hover:scale-110 shadow-lg active:scale-95"
+                  className="w-11 h-11 rounded-full border border-glacier bg-white flex items-center justify-center text-ultraviolet hover:bg-glacier hover:text-[#0F172A] transition duration-200 transform hover:scale-110 shadow-md active:scale-95"
                   title="View Code Repositories"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -96,7 +96,7 @@ export default function AboutSkillsSection() {
                 </a>
                 <a
                   href="#projects"
-                  className="-ml-3 w-11 h-11 rounded-full bg-[#f3f3f3] text-[#0d0d0d] flex items-center justify-center font-mono text-sm font-bold shadow-lg hover:scale-110 transition duration-200 active:scale-95"
+                  className="-ml-3 w-11 h-11 rounded-full bg-ultraviolet text-white flex items-center justify-center font-mono text-sm font-bold shadow-md hover:scale-110 hover:bg-glacier hover:text-[#0F172A] transition duration-200 active:scale-95"
                   title="Explore Stack in Action"
                 >
                   ↗
@@ -110,13 +110,13 @@ export default function AboutSkillsSection() {
             <div
               data-skill-group="backend"
               onClick={() => handleSkillCardClick('backend')}
-              className="skill-card cursor-pointer rounded-3xl p-6 bg-[#151515] hover:bg-[#1e1e1e] border border-white/15 hover:border-white/35 transition-all duration-300 transform hover:-translate-y-1 active:scale-[0.99]"
+              className="skill-card cursor-pointer rounded-3xl p-6 bg-white hover:bg-white/95 border border-glacier/70 transition-all duration-300 transform hover:-translate-y-1 shadow-md active:scale-[0.99]"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-sm font-semibold text-neutral-200">Back-end</span>
-                <span className="text-[11px] font-mono text-neutral-500">Distributed & Microservices</span>
+                <span className="font-mono text-sm font-bold text-ultraviolet">Back-end</span>
+                <span className="text-[11px] font-mono text-[#64748B]">Distributed & Microservices</span>
               </div>
-              <p id="skillsBackend" className="font-mono text-xs sm:text-[13px] leading-relaxed text-neutral-400">
+              <p id="skillsBackend" className="font-mono text-xs sm:text-[13px] leading-relaxed text-[#475569] font-medium">
                 {backendStack}
               </p>
             </div>
@@ -125,16 +125,16 @@ export default function AboutSkillsSection() {
           {/* Bottom Row: Left Note + Right DevOps Card */}
           <ScrollReveal delay={300} distance={18}>
             <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-              <div className="sm:col-span-5 text-xs text-neutral-400 leading-relaxed pr-2">
-                Some of my <em className="italic font-serif text-white">favorite technologies, topics, or tools</em> that I worked with
+              <div className="sm:col-span-5 text-xs text-[#475569] leading-relaxed pr-2 font-medium">
+                Some of my <em className="italic font-serif text-ultraviolet font-bold">favorite technologies, topics, or tools</em> that I worked with
               </div>
               <div
                 data-skill-group="devops"
                 onClick={() => handleSkillCardClick('devops')}
-                className="skill-card sm:col-span-7 cursor-pointer rounded-3xl p-5 bg-[#151515] hover:bg-[#1e1e1e] border border-white/15 hover:border-white/35 transition-all duration-300 transform hover:-translate-y-1 active:scale-[0.99]"
+                className="skill-card sm:col-span-7 cursor-pointer rounded-3xl p-5 bg-white hover:bg-white/95 border border-glacier/70 transition-all duration-300 transform hover:-translate-y-1 shadow-md active:scale-[0.99]"
               >
-                <div className="font-mono text-sm font-semibold text-neutral-200 mb-1.5">DevOps</div>
-                <p id="skillsDevops" className="font-mono text-xs leading-relaxed text-neutral-400">
+                <div className="font-mono text-sm font-bold text-ultraviolet mb-1.5">DevOps</div>
+                <p id="skillsDevops" className="font-mono text-xs leading-relaxed text-[#475569] font-medium">
                   {devopsStack}
                 </p>
               </div>
@@ -144,19 +144,19 @@ export default function AboutSkillsSection() {
 
         {/* Right Column: Developer Portrait Card with Live ASCII / Scanline Dither Switcher */}
         <ScrollReveal delay={200} distance={24} className="lg:col-span-5 relative flex justify-center">
-          {/* Decorative Orbital Ring with smooth ambient rotation */}
+          {/* Decorative Orbital Ring with subtle Ultraviolet accent glow */}
           <div className="orbital-circle absolute -top-14 -left-10 w-80 h-80 animate-spin-slow" />
 
-          <div className="relative z-10 w-full max-w-[330px] rounded-3xl overflow-hidden border border-white/20 bg-[#141414] shadow-2xl transition duration-300 hover:border-white/40">
-            <div className="relative h-[390px] w-full bg-[#0a0a0a]">
+          <div className="relative z-10 w-full max-w-[330px] rounded-3xl overflow-hidden border border-glacier/60 bg-white shadow-xl transition duration-300 hover:border-ultraviolet">
+            <div className="relative h-[390px] w-full bg-[#EAF1F8]">
               <PortraitCanvas />
-              <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-mono text-neutral-200 pointer-events-none">
+              <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/85 backdrop-blur-md border border-glacier/70 text-[10px] font-mono text-ultraviolet font-bold pointer-events-none shadow-xs">
                 HOVER FOR ASCII LENS
               </div>
               <button
                 id="togglePortraitModeBtn"
                 onClick={cyclePortraitMode}
-                className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-white text-black font-mono text-[11px] font-medium shadow-lg hover:bg-neutral-200 transition duration-200 transform hover:scale-105 active:scale-95"
+                className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-glacier text-[#0F172A] border border-glacier font-mono text-[11px] font-bold shadow-md hover:bg-ultraviolet hover:text-white transition duration-200 transform hover:scale-105 active:scale-95"
               >
                 {portraitModeLabels[portraitMode]}
               </button>

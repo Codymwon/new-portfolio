@@ -52,13 +52,17 @@ export default function FooterHorizonCanvas() {
   const isVisibleRef = useRef<boolean>(false);
   const atlasRef = useRef<HTMLCanvasElement | null>(null);
 
-  // Pre-rasterize glyph atlas into an offscreen canvas to replace expensive fillText calls
+  // Pre-rasterize glyph atlas:
+  // Row 0: Mineral Grey #B7B7B7 (Dark Mode Horizon ASCII Art)
+  // Row 1: Glacier Blue #BFE9FF (Dark Mode Interactive Hover/Ripple)
+  // Row 2: Mineral Slate #475569 (Light Mode Horizon ASCII Art)
+  // Row 3: Ultraviolet #6F3DFF (Light Mode Interactive Hover/Ripple)
   const getGlyphAtlas = () => {
     if (atlasRef.current) return atlasRef.current;
     const off = document.createElement('canvas');
     const sz = 16;
     off.width = sz * GLYPHS.length;
-    off.height = sz * 2; // Row 0: White (Dark Theme), Row 1: Dark (Light Theme)
+    off.height = sz * 4;
     const c = off.getContext('2d');
     if (!c) return off;
 
@@ -66,16 +70,28 @@ export default function FooterHorizonCanvas() {
     c.textBaseline = 'middle';
     c.textAlign = 'center';
 
-    // Row 0: White
-    c.fillStyle = '#f6f6f6';
+    // Row 0: Mineral Grey #B7B7B7
+    c.fillStyle = '#B7B7B7';
     for (let i = 0; i < GLYPHS.length; i++) {
       c.fillText(GLYPHS[i], i * sz + sz / 2, sz / 2);
     }
 
-    // Row 1: Dark
-    c.fillStyle = '#111111';
+    // Row 1: Glacier Blue #BFE9FF
+    c.fillStyle = '#BFE9FF';
     for (let i = 0; i < GLYPHS.length; i++) {
       c.fillText(GLYPHS[i], i * sz + sz / 2, sz + sz / 2);
+    }
+
+    // Row 2: Cool Mineral Grey #5A6275 (Light Mode Base)
+    c.fillStyle = '#5A6275';
+    for (let i = 0; i < GLYPHS.length; i++) {
+      c.fillText(GLYPHS[i], i * sz + sz / 2, sz * 2 + sz / 2);
+    }
+
+    // Row 3: Glacier Blue #0284C7 (Light Mode Interactive Hover/Ripple)
+    c.fillStyle = '#0284C7';
+    for (let i = 0; i < GLYPHS.length; i++) {
+      c.fillText(GLYPHS[i], i * sz + sz / 2, sz * 3 + sz / 2);
     }
 
     atlasRef.current = off;
@@ -223,25 +239,26 @@ export default function FooterHorizonCanvas() {
 
       const atlas = getGlyphAtlas();
       const t = now * 0.001;
-      const lightTheme = document.documentElement.classList.contains('light-theme');
-      const atlasY = lightTheme ? 16 : 0;
-      const baseColor = lightTheme ? '#111111' : '#f6f6f6';
+      const lightTheme = typeof document !== 'undefined' && document.documentElement.classList.contains('light-theme');
+      const baseColor = lightTheme ? '#5A6275' : '#B7B7B7'; // Cool Mineral Grey
+      const glacierColor = lightTheme ? '#0284C7' : '#BFE9FF'; // Glacier Blue stars in light, Glacier in dark
 
-      ctx.fillStyle = lightTheme ? '#f5f5f7' : '#080808';
+      ctx.fillStyle = lightTheme ? '#E8F0F7' : '#08080c';
       ctx.fillRect(0, 0, w, h);
 
       if (mapRef.current.ready) {
-        // 1. Render drift stars & particles
+        // 1. Render drift stars & particles (Stars in Glacier Blue #BFE9FF, mist in Mineral Grey #B7B7B7)
         const drift = driftRef.current;
-        ctx.fillStyle = lightTheme ? '#222222' : '#ffffff';
 
         for (let i = 0; i < drift.length; i++) {
           const dp = drift[i];
           if (dp.isStar) {
+            ctx.fillStyle = glacierColor;
             const twinkle = 0.35 + 0.65 * Math.abs(Math.sin(t * 1.8 + dp.phase));
             ctx.globalAlpha = dp.alpha * twinkle;
             ctx.fillRect(dp.x | 0, dp.y | 0, dp.size, dp.size);
           } else {
+            ctx.fillStyle = baseColor;
             dp.x += dp.speed;
             dp.y += Math.sin(dp.x * 0.012 + t) * 0.28 + dp.speed * 0.18;
             if (dp.x > w) {
@@ -258,8 +275,7 @@ export default function FooterHorizonCanvas() {
           }
         }
 
-        // 2. Render Horizon Particles
-        // Set fillStyle once outside the loop to eliminate per-particle string allocations
+        // 2. Render Horizon Particles in Mineral Grey #B7B7B7 (Glacier Blue on ripple / hover)
         ctx.fillStyle = baseColor;
         const cursorRad = 115;
         const cursorRadSq = cursorRad * cursorRad;
@@ -324,6 +340,10 @@ export default function FooterHorizonCanvas() {
           const alpha = Math.min(1, Math.max(0, (p.lum * 0.98 + cursorGlow) * shimmer));
           ctx.globalAlpha = alpha;
 
+          // Glacier Blue highlight for cursor hover & ripples in dark mode; Ultraviolet in light mode
+          const isHighlighted = isNearCursor || cursorGlow > 0.2;
+          const atlasY = lightTheme ? (isHighlighted ? 48 : 32) : (isHighlighted ? 16 : 0);
+
           // GPU texture blit with drawImage instead of expensive fillText
           if (isNearCursor || (i % 8 === 0 && p.lum > 0.48)) {
             ctx.drawImage(
@@ -338,6 +358,7 @@ export default function FooterHorizonCanvas() {
               16
             );
           } else {
+            ctx.fillStyle = isHighlighted ? glacierColor : baseColor;
             ctx.fillRect(p.x | 0, p.y | 0, p.size, p.size);
           }
         }

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0e0e0e',
+  themeColor: '#F0F5FA',
 };
 
 export default function RootLayout({
@@ -36,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body className="relative min-h-screen selection:bg-white selection:text-black">
+    <html lang="en" className="light-theme scroll-smooth">
+      <body className="relative min-h-screen bg-[#F0F5FA] text-[#121217] selection:bg-ultraviolet selection:text-white">
         {/* GLOBAL SCROLL-LINKED ASCII STREAM CANVAS */}
         <ScrollStreamCanvas />
 

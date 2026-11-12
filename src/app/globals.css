@@ -5,21 +5,33 @@
 @tailwind utilities;
 
 :root {
-  --bg-primary: #0e0e0e;
-  --bg-elevated: #161616;
+  --bg-primary: #F0F5FA;
+  --bg-elevated: #ffffff;
+  --text-primary: #121217;
+  --text-muted: #52525B;
+  --color-glacier: #BFE9FF;
+  --color-ultraviolet: #6F3DFF;
+  --color-mineral: #B7B7B7;
+  --border-subtle: rgba(191, 233, 255, 0.7);
+  --border-faint: rgba(111, 61, 255, 0.12);
+}
+
+html.dark {
+  --bg-primary: #0a0a0e;
+  --bg-elevated: #14141c;
   --text-primary: #f3f3f3;
-  --text-muted: #8c8c8c;
-  --border-subtle: rgba(255, 255, 255, 0.14);
-  --border-faint: rgba(255, 255, 255, 0.07);
+  --text-muted: #B7B7B7;
+  --border-subtle: rgba(191, 233, 255, 0.18);
+  --border-faint: rgba(111, 61, 255, 0.16);
 }
 
 html.light-theme {
-  --bg-primary: #f4f4f1;
+  --bg-primary: #F0F5FA;
   --bg-elevated: #ffffff;
-  --text-primary: #111111;
-  --text-muted: #555555;
-  --border-subtle: rgba(0, 0, 0, 0.15);
-  --border-faint: rgba(0, 0, 0, 0.08);
+  --text-primary: #121217;
+  --text-muted: #52525B;
+  --border-subtle: rgba(191, 233, 255, 0.7);
+  --border-faint: rgba(111, 61, 255, 0.12);
 }
 
 * {
@@ -30,6 +42,11 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: #6F3DFF;
+  color: #ffffff;
+}
+
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -38,11 +55,12 @@ body {
   transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-/* Decorative orbital circles strictly matching Reference 2 (Nikita Khvatov) */
+/* Decorative orbital circles with subtle Ultraviolet glow */
 .orbital-circle {
-  border: 1px solid var(--border-faint);
+  border: 1px solid rgba(111, 61, 255, 0.14);
   border-radius: 9999px;
   pointer-events: none;
+  box-shadow: 0 0 60px rgba(191, 233, 255, 0.35);
 }
 
 ::-webkit-scrollbar {
@@ -51,43 +69,44 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0b0b;
+  background: #E8F0F7;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: #BFE9FF;
   border-radius: 3px;
+  border: 1px solid rgba(111, 61, 255, 0.2);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #666;
+  background: #6F3DFF;
 }
 
-/* Work experience row hover/active inversion (Reference 2 exact style) */
+/* Work experience row hover/active inversion with Ultraviolet & Glacier Blue accents */
 .work-row {
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .work-row:hover,
 .work-row.active-row {
-  background-color: #f3f3f3;
-  color: #0d0d0d;
+  background-color: #6F3DFF;
+  color: #ffffff;
 }
 
 html.light-theme .work-row:hover,
 html.light-theme .work-row.active-row {
-  background-color: #111111;
-  color: #f3f3f3;
+  background-color: #6F3DFF;
+  color: #ffffff;
 }
 
 .work-row:hover .work-muted,
 .work-row.active-row .work-muted {
-  color: #4a4a4a;
+  color: #BFE9FF;
 }
 
 html.light-theme .work-row:hover .work-muted,
 html.light-theme .work-row.active-row .work-muted {
-  color: #b0b0b0;
+  color: #BFE9FF;
 }
 
 .scanline-card {
@@ -95,21 +114,22 @@ html.light-theme .work-row.active-row .work-muted {
     to bottom,
     transparent 0px,
     transparent 3px,
-    rgba(255, 255, 255, 0.022) 3px,
-    rgba(255, 255, 255, 0.022) 4px
+    rgba(191, 233, 255, 0.02) 3px,
+    rgba(191, 233, 255, 0.02) 4px
   );
 }
 
 .social-pill {
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(191, 233, 255, 0.2);
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .social-pill:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
+  background: #BFE9FF;
+  color: #0b0b0e;
+  border-color: #BFE9FF;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.12);
+  box-shadow: 0 6px 24px rgba(191, 233, 255, 0.25);
 }
 
 /* Interactive Card Elevation & Micro-interactions */
@@ -122,16 +142,19 @@ html.light-theme .work-row.active-row .work-muted {
 
 .interactive-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 14px 34px -8px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 14px 34px -8px rgba(111, 61, 255, 0.25);
+  border-color: rgba(191, 233, 255, 0.35);
 }
 
-/* Hero Display Title Typographic Treatment */
+/* Hero Display Title Typographic Treatment with Ultraviolet Glow */
 .hero-headline-text {
-  text-shadow: 0 4px 36px rgba(0, 0, 0, 0.95);
+  color: #6F3DFF;
+  text-shadow: 0 4px 32px rgba(111, 61, 255, 0.45), 0 0 80px rgba(111, 61, 255, 0.2);
 }
 
 html.light-theme .hero-headline-text {
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  color: #5528d6;
+  text-shadow: 0 4px 24px rgba(111, 61, 255, 0.2);
 }
 
 /* Stagger animation delay helper classes */

@@ -60,10 +60,10 @@ export default function ScrollStreamCanvas() {
             const finalX = x + (x > mouseX ? push : -push);
 
             const charIdx = Math.abs(i + band + Math.floor(t * 5 + scrollY * 0.02)) % chars.length;
-            const alpha = (1 - Math.abs(band) / 3.5) * (dMouse < 110 ? 0.45 : 0.12);
+            const alpha = (1 - Math.abs(band) / 3.5) * (dMouse < 110 ? 0.55 : 0.16);
             ctx.fillStyle = isLight
-              ? `rgba(17,17,17,${alpha})`
-              : `rgba(255,255,255,${alpha})`;
+              ? (dMouse < 110 ? `rgba(2,132,199,${alpha * 1.5})` : `rgba(90,98,117,${alpha})`)
+              : (dMouse < 110 ? `rgba(191,233,255,${alpha})` : `rgba(183,183,183,${alpha})`);
             ctx.fillText(chars[charIdx], finalX, drawY);
           }
         }

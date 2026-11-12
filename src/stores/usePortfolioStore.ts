@@ -69,7 +69,7 @@ export const usePortfolioStore = create<PortfolioState>((set) => ({
   backendStack: 'Golang / Gin / GORM / PostgreSQL / MySQL / MongoDB / gRPC / Redis / Kafka / Node / Nest / TypeORM / Microservices',
   stylesStack: 'SCSS / SASS / PostCSS / Ant.d / MUI / Material UI',
   devopsStack: 'Nginx / Brotli / Docker / (CI/CD) / k8s / bash',
-  isLight: false,
+  isLight: true,
   lang: 'en',
   heroFont: 'display', // Space Grotesk (Architectural display font)
   activeFilter: 'all',

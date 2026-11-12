@@ -44,17 +44,17 @@ export default function TelemetryHud() {
   }, [setHudData]);
 
   return (
-    <div className="fixed bottom-4 left-4 z-40 hidden md:flex items-center gap-3 px-3.5 py-2 rounded-full bg-black/85 backdrop-blur-md border border-white/15 text-[11px] font-mono text-neutral-300 shadow-2xl animate-fade-in-up animate-delay-500 hover:border-white/35 transition-colors">
-      <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-      <span id="hudSectionLabel">{hudSection}</span>
-      <span className="text-white/25">|</span>
-      <span id="hudScrollPct">SCROLL: {hudScrollPct}%</span>
-      <span className="text-white/25">|</span>
-      <span id="hudCursorPos">{hudCursorPos}</span>
+    <div className="fixed bottom-4 left-4 z-40 hidden md:flex items-center gap-3 px-3.5 py-2 rounded-full bg-white/90 backdrop-blur-md border border-glacier text-[11px] font-mono text-[#334155] shadow-lg animate-fade-in-up animate-delay-500 hover:border-ultraviolet transition-colors font-medium">
+      <span className="inline-block w-2 h-2 rounded-full bg-ultraviolet animate-pulse shadow-[0_0_8px_#6F3DFF]" />
+      <span id="hudSectionLabel" className="text-ultraviolet font-bold">{hudSection}</span>
+      <span className="text-glacier">|</span>
+      <span id="hudScrollPct" className="text-[#64748B]">SCROLL: {hudScrollPct}%</span>
+      <span className="text-glacier">|</span>
+      <span id="hudCursorPos" className="text-ultraviolet font-bold">{hudCursorPos}</span>
       <button
         id="toggleScrollStreamBtn"
         onClick={toggleScrollStream}
-        className="ml-1 px-2 py-0.5 rounded bg-white/10 hover:bg-white/25 text-white transition duration-200 active:scale-90"
+        className="ml-1 px-2 py-0.5 rounded bg-glacier/35 hover:bg-ultraviolet hover:text-white text-ultraviolet border border-glacier/60 transition duration-200 active:scale-90 font-bold"
         title="Toggle Scroll ASCII Trail"
       >
         Trail: {scrollStreamEnabled ? 'ON' : 'OFF'}

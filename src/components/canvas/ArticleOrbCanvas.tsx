@@ -58,11 +58,15 @@ export default function ArticleOrbCanvas() {
       const rx = w * 0.36;
       const ry = h * 0.28;
 
-      ctx.fillStyle = 'rgba(255,255,255,0.65)';
       for (let i = 0; i < 24; i++) {
         const ang = (i / 24) * Math.PI * 2 + t;
         const x = cx + Math.cos(ang) * rx;
         const y = cy + Math.sin(ang) * ry;
+        const isLight = document.documentElement.classList.contains('light-theme');
+        // Alternate between Cool Mineral Grey and Glacier Blue highlights
+        ctx.fillStyle = isLight
+          ? (i % 3 === 0 ? 'rgba(2,132,199,0.95)' : 'rgba(90,98,117,0.8)')
+          : (i % 3 === 0 ? 'rgba(191,233,255,0.85)' : 'rgba(183,183,183,0.7)');
         ctx.fillText(glyphs[i % glyphs.length], x, y);
       }
 

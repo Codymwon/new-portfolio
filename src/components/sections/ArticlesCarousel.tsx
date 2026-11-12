@@ -44,21 +44,21 @@ export default function ArticlesCarousel() {
         <div
           id="carouselPrevCard"
           onClick={() => stepCarousel(-1)}
-          className="hidden md:flex md:col-span-3 rounded-3xl border border-white/10 bg-[#151515]/55 p-6 flex-col justify-between opacity-40 hover:opacity-85 hover:border-white/30 hover:scale-[1.01] transition duration-300 cursor-pointer relative overflow-hidden group shadow-lg"
+          className="hidden md:flex md:col-span-3 rounded-3xl border border-glacier/60 bg-white/70 hover:bg-white/95 p-6 flex-col justify-between opacity-60 hover:opacity-100 hover:border-ultraviolet hover:scale-[1.01] transition duration-300 cursor-pointer relative overflow-hidden group shadow-md"
         >
           <div>
-            <h3 id="prevCardTitle" className="font-mono text-sm font-semibold text-neutral-300 leading-snug group-hover:text-white transition-colors">
+            <h3 id="prevCardTitle" className="font-mono text-sm font-semibold text-[#334155] leading-snug group-hover:text-ultraviolet transition-colors">
               {prev.title}
             </h3>
-            <p id="prevCardDesc" className="mt-2.5 text-xs text-neutral-500 line-clamp-3 leading-relaxed">
+            <p id="prevCardDesc" className="mt-2.5 text-xs text-[#64748B] line-clamp-3 leading-relaxed">
               {prev.desc}
             </p>
           </div>
           <div className="mt-5 flex items-center gap-2">
-            <span className="px-4 py-1.5 rounded-full border border-white/15 text-[11px] text-neutral-400 group-hover:border-white/30 group-hover:text-neutral-200 transition">
+            <span className="px-4 py-1.5 rounded-full border border-glacier text-[11px] text-ultraviolet font-semibold group-hover:bg-glacier group-hover:text-[#0F172A] transition">
               Read more
             </span>
-            <span className="w-7 h-7 rounded-full border border-white/15 flex items-center justify-center text-xs text-neutral-400 group-hover:border-white/30 group-hover:text-neutral-200 group-hover:translate-x-0.5 transition">
+            <span className="w-7 h-7 rounded-full border border-glacier flex items-center justify-center text-xs text-ultraviolet group-hover:bg-glacier group-hover:text-[#0F172A] group-hover:translate-x-0.5 transition">
               →
             </span>
           </div>
@@ -69,7 +69,7 @@ export default function ArticlesCarousel() {
               e.stopPropagation();
               stepCarousel(-1);
             }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/25 bg-[#121212]/90 hover:bg-white hover:text-black text-white flex items-center justify-center transition duration-200 z-20 shadow-xl active:scale-90"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-glacier bg-white/90 hover:bg-glacier hover:text-[#0F172A] text-ultraviolet flex items-center justify-center transition duration-200 z-20 shadow-lg active:scale-90 font-bold"
             aria-label="Previous Article"
           >
             ←
@@ -77,25 +77,25 @@ export default function ArticlesCarousel() {
         </div>
 
         {/* Center Active Highlight Card */}
-        <div className="md:col-span-6 rounded-3xl border border-white/20 bg-[#1c1c1c] overflow-hidden grid grid-cols-1 sm:grid-cols-12 shadow-2xl interactive-card">
+        <div className="md:col-span-6 rounded-3xl border-2 border-glacier bg-white overflow-hidden grid grid-cols-1 sm:grid-cols-12 shadow-xl interactive-card">
           {/* Left Visual Canvas */}
-          <div className="sm:col-span-5 relative min-h-[210px] bg-[#141824] flex items-center justify-center overflow-hidden">
+          <div className="sm:col-span-5 relative min-h-[210px] bg-[#EAF1F8] flex items-center justify-center overflow-hidden">
             <ArticleOrbCanvas />
-            <span id="activeCardTag" className="absolute top-3 left-3 px-2 py-0.5 rounded bg-black/65 backdrop-blur-sm border border-white/15 text-[10px] font-mono text-white transition-opacity duration-300">
+            <span id="activeCardTag" className="absolute top-3 left-3 px-2 py-0.5 rounded bg-ultraviolet text-white font-mono text-[10px] font-semibold border border-ultraviolet/40 transition-opacity duration-300 shadow">
               {curr.tag}
             </span>
           </div>
           {/* Right Text Content with smooth transition on index change */}
           <div className="sm:col-span-7 p-6 sm:p-7 flex flex-col justify-between">
             <div className={`transition-all duration-300 ${animating ? 'opacity-40 translate-y-1' : 'opacity-100 translate-y-0'}`}>
-              <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 mb-1.5">
+              <div className="flex items-center justify-between text-[11px] font-mono text-ultraviolet mb-1.5 font-bold">
                 <span id="activeCardIndex">ARTICLE 0{activeArticleIndex + 1} / 0{total}</span>
-                <span id="activeCardReadTime">{curr.readTime}</span>
+                <span id="activeCardReadTime" className="text-[#64748B] font-medium">{curr.readTime}</span>
               </div>
-              <h3 id="activeCardTitle" className="font-mono text-base sm:text-lg font-bold text-white leading-snug">
+              <h3 id="activeCardTitle" className="font-mono text-base sm:text-lg font-bold text-[#0F172A] leading-snug">
                 {curr.title}
               </h3>
-              <p id="activeCardDesc" className="mt-2.5 text-xs sm:text-[13px] text-neutral-300 leading-relaxed">
+              <p id="activeCardDesc" className="mt-2.5 text-xs sm:text-[13px] text-[#475569] leading-relaxed font-medium">
                 {curr.desc}
               </p>
             </div>
@@ -104,14 +104,14 @@ export default function ArticlesCarousel() {
                 <button
                   id="openArticleModalBtn"
                   onClick={openCurrentArticle}
-                  className="px-6 py-2 rounded-full bg-[#f3f3f3] text-[#0d0d0d] hover:bg-white text-xs font-medium italic transition duration-200 transform hover:-translate-y-0.5 shadow active:scale-95"
+                  className="px-6 py-2 rounded-full bg-glacier text-[#0F172A] hover:bg-ultraviolet hover:text-white border border-glacier text-xs font-bold italic transition duration-200 transform hover:-translate-y-0.5 shadow-md active:scale-95"
                 >
                   Read more
                 </button>
                 <button
                   id="openArticleModalIconBtn"
                   onClick={openCurrentArticle}
-                  className="w-8 h-8 rounded-full bg-[#f3f3f3] text-[#0d0d0d] hover:bg-white flex items-center justify-center text-xs font-mono transition duration-200 transform hover:scale-105 shadow active:scale-90"
+                  className="w-8 h-8 rounded-full bg-glacier text-[#0F172A] hover:bg-ultraviolet hover:text-white border border-glacier flex items-center justify-center text-xs font-mono font-bold transition duration-200 transform hover:scale-105 shadow-md active:scale-90"
                   aria-label="Read full article"
                 >
                   →
@@ -122,14 +122,14 @@ export default function ArticlesCarousel() {
                 <button
                   id="carouselPrevBtnMobile"
                   onClick={() => stepCarousel(-1)}
-                  className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-xs active:scale-90 transition"
+                  className="w-8 h-8 rounded-full border border-glacier bg-white text-ultraviolet flex items-center justify-center text-xs active:scale-90 transition font-bold"
                 >
                   ←
                 </button>
                 <button
                   id="carouselNextBtnMobile"
                   onClick={() => stepCarousel(1)}
-                  className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-xs active:scale-90 transition"
+                  className="w-8 h-8 rounded-full border border-glacier bg-white text-ultraviolet flex items-center justify-center text-xs active:scale-90 transition font-bold"
                 >
                   →
                 </button>
@@ -142,21 +142,21 @@ export default function ArticlesCarousel() {
         <div
           id="carouselNextCard"
           onClick={() => stepCarousel(1)}
-          className="hidden md:flex md:col-span-3 rounded-3xl border border-white/10 bg-[#151515]/55 p-6 flex-col justify-between opacity-40 hover:opacity-85 hover:border-white/30 hover:scale-[1.01] transition duration-300 cursor-pointer relative overflow-hidden group shadow-lg"
+          className="hidden md:flex md:col-span-3 rounded-3xl border border-glacier/60 bg-white/70 hover:bg-white/95 p-6 flex-col justify-between opacity-60 hover:opacity-100 hover:border-ultraviolet hover:scale-[1.01] transition duration-300 cursor-pointer relative overflow-hidden group shadow-md"
         >
           <div>
-            <h3 id="nextCardTitle" className="font-mono text-sm font-semibold text-neutral-300 leading-snug group-hover:text-white transition-colors">
+            <h3 id="nextCardTitle" className="font-mono text-sm font-semibold text-[#334155] leading-snug group-hover:text-ultraviolet transition-colors">
               {next.title}
             </h3>
-            <p id="nextCardDesc" className="mt-2.5 text-xs text-neutral-500 line-clamp-3 leading-relaxed">
+            <p id="nextCardDesc" className="mt-2.5 text-xs text-[#64748B] line-clamp-3 leading-relaxed">
               {next.desc}
             </p>
           </div>
           <div className="mt-5 flex items-center gap-2">
-            <span className="px-4 py-1.5 rounded-full border border-white/15 text-[11px] text-neutral-400 group-hover:border-white/30 group-hover:text-neutral-200 transition">
+            <span className="px-4 py-1.5 rounded-full border border-glacier text-[11px] text-ultraviolet font-semibold group-hover:bg-glacier group-hover:text-[#0F172A] transition">
               Read more
             </span>
-            <span className="w-7 h-7 rounded-full border border-white/15 flex items-center justify-center text-xs text-neutral-400 group-hover:border-white/30 group-hover:text-neutral-200 group-hover:translate-x-0.5 transition">
+            <span className="w-7 h-7 rounded-full border border-glacier flex items-center justify-center text-xs text-ultraviolet group-hover:bg-glacier group-hover:text-[#0F172A] group-hover:translate-x-0.5 transition">
               →
             </span>
           </div>
@@ -167,7 +167,7 @@ export default function ArticlesCarousel() {
               e.stopPropagation();
               stepCarousel(1);
             }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/25 bg-[#121212]/90 hover:bg-white hover:text-black text-white flex items-center justify-center transition duration-200 z-20 shadow-xl active:scale-90"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-glacier bg-white/90 hover:bg-glacier hover:text-[#0F172A] text-ultraviolet flex items-center justify-center transition duration-200 z-20 shadow-lg active:scale-90 font-bold"
             aria-label="Next Article"
           >
             →

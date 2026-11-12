@@ -54,12 +54,16 @@ export default function HeroAsciiCanvas() {
   const atlasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Pre-rasterize glyph atlas into an offscreen canvas to replace expensive fillText calls
+  // Row 0: Mineral Grey #B7B7B7 (Dark Mode Standard ASCII Art)
+  // Row 1: Glacier Blue #BFE9FF (Dark Mode Interactive Hover Glow)
+  // Row 2: Mineral Slate #475569 (Light Mode Standard ASCII Art)
+  // Row 3: Ultraviolet #6F3DFF (Light Mode Interactive Hover Glow)
   const getGlyphAtlas = () => {
     if (atlasRef.current) return atlasRef.current;
     const off = document.createElement('canvas');
     const sz = 16;
     off.width = sz * GLYPHS.length;
-    off.height = sz * 2; // Row 0: White (Dark Theme), Row 1: Dark (Light Theme)
+    off.height = sz * 4;
     const c = off.getContext('2d');
     if (!c) return off;
 
@@ -67,16 +71,28 @@ export default function HeroAsciiCanvas() {
     c.textBaseline = 'middle';
     c.textAlign = 'center';
 
-    // Row 0: White
-    c.fillStyle = '#f6f6f6';
+    // Row 0: Mineral Grey #B7B7B7
+    c.fillStyle = '#B7B7B7';
     for (let i = 0; i < GLYPHS.length; i++) {
       c.fillText(GLYPHS[i], i * sz + sz / 2, sz / 2);
     }
 
-    // Row 1: Dark
-    c.fillStyle = '#111111';
+    // Row 1: Glacier Blue #BFE9FF
+    c.fillStyle = '#BFE9FF';
     for (let i = 0; i < GLYPHS.length; i++) {
       c.fillText(GLYPHS[i], i * sz + sz / 2, sz + sz / 2);
+    }
+
+    // Row 2: Cool Mineral Grey #5A6275 (Light Background Base)
+    c.fillStyle = '#5A6275';
+    for (let i = 0; i < GLYPHS.length; i++) {
+      c.fillText(GLYPHS[i], i * sz + sz / 2, sz * 2 + sz / 2);
+    }
+
+    // Row 3: Glacier Blue #0284C7 (Light Background Interactive Hover/Ripple)
+    c.fillStyle = '#0284C7';
+    for (let i = 0; i < GLYPHS.length; i++) {
+      c.fillText(GLYPHS[i], i * sz + sz / 2, sz * 3 + sz / 2);
     }
 
     atlasRef.current = off;
@@ -243,14 +259,14 @@ export default function HeroAsciiCanvas() {
 
         const globalFade = Math.min(1, scanWave);
         const lightTheme = document.documentElement.classList.contains('light-theme');
-        const atlasY = lightTheme ? 16 : 0;
-        const baseColor = lightTheme ? '#111111' : '#f6f6f6';
+        const baseColor = lightTheme ? '#5A6275' : '#B7B7B7'; // Cool Mineral Grey
+        const highlightColor = lightTheme ? '#0284C7' : '#BFE9FF'; // Glacier Blue
 
-        // 1. Render 3D Orbital Code Rings
+        // 1. Render 3D Orbital Code Rings in Glacier Blue
         ctx.font = '600 8.5px "Fira Code", monospace';
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
-        ctx.fillStyle = baseColor;
+        ctx.fillStyle = highlightColor;
 
         const orbitNodes = orbitNodesRef.current;
         for (let i = 0; i < orbitNodes.length; i++) {
@@ -260,13 +276,12 @@ export default function HeroAsciiCanvas() {
           const oy = Math.sin(ang) * node.radiusY;
           const rx = cx + ox * Math.cos(node.tilt) - oy * Math.sin(node.tilt);
           const ry = cy + ox * Math.sin(node.tilt) + oy * Math.cos(node.tilt) + scrollFactor * 35;
-          const depthAlpha = (0.18 + 0.32 * (Math.sin(ang) + 1) * 0.5) * globalFade;
+          const depthAlpha = (0.2 + 0.35 * (Math.sin(ang) + 1) * 0.5) * globalFade;
           ctx.globalAlpha = depthAlpha;
           ctx.fillText(node.char, rx, ry);
         }
 
-        // 2. Render Interactive Sculpture Particles
-        // Set fillStyle once outside the loop to avoid 10,000+ string allocations & pipeline flushes!
+        // 2. Render Interactive Sculpture Particles in Mineral Grey #B7B7B7 (with Glacier Blue on hover)
         ctx.fillStyle = baseColor;
         const particles = particlesRef.current;
         const ripples = ripplesRef.current;
@@ -309,7 +324,7 @@ export default function HeroAsciiCanvas() {
             const force = Math.pow(1 - dist / cursorRad, 1.55);
             p.vx += (dx / dist) * force * 4.5;
             p.vy += (dy / dist) * force * 4.5;
-            cursorGlow = force * 0.55;
+            cursorGlow = force * 0.6;
             isNearCursor = dist < 95;
           }
 
@@ -329,7 +344,7 @@ export default function HeroAsciiCanvas() {
                   const wf = (1 - band / 34) * rip.alpha;
                   p.vx += (rdx / rd) * wf * 3.8;
                   p.vy += (rdy / rd) * wf * 3.8;
-                  cursorGlow += wf * 0.7;
+                  cursorGlow += wf * 0.75;
                 }
               }
             }
@@ -343,6 +358,10 @@ export default function HeroAsciiCanvas() {
           const shimmer = 0.88 + 0.12 * Math.sin(t * 3.4 + p.phase);
           const alpha = Math.min(1, Math.max(0, (p.lum * 0.98 + cursorGlow + scanFrontBoost) * shimmer * localEase));
           ctx.globalAlpha = alpha;
+
+          // Glacier Blue highlight for cursor hover & ripples in dark mode; Ultraviolet in light mode
+          const isHighlighted = isNearCursor || cursorGlow > 0.2;
+          const atlasY = lightTheme ? (isHighlighted ? 48 : 32) : (isHighlighted ? 16 : 0);
 
           // GPU texture blit with drawImage instead of expensive fillText
           if (isNearCursor || localProgress < 0.82 || (i % 6 === 0 && p.lum > 0.45)) {
@@ -358,6 +377,7 @@ export default function HeroAsciiCanvas() {
               16
             );
           } else {
+            ctx.fillStyle = isHighlighted ? highlightColor : baseColor;
             ctx.fillRect(p.x | 0, p.y | 0, p.size, p.size);
           }
         }

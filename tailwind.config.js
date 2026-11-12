@@ -17,10 +17,13 @@ module.exports = {
         pixel: ['"Press Start 2P"', 'monospace'],
       },
       colors: {
-        obsidian: '#0b0b0b',
-        charcoal: '#121212',
-        cardDark: '#171717',
+        obsidian: '#0a0a0d',
+        charcoal: '#121217',
+        cardDark: '#16161d',
         offwhite: '#f2f2ef',
+        glacier: '#BFE9FF',
+        ultraviolet: '#6F3DFF',
+        mineral: '#B7B7B7',
       },
       keyframes: {
         fadeIn: {

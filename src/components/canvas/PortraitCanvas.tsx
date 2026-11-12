@@ -71,7 +71,8 @@ export default function PortraitCanvas() {
       }
 
       const t = now * 0.001;
-      ctx.fillStyle = '#0c0c0c';
+      const isLight = document.documentElement.classList.contains('light-theme');
+      ctx.fillStyle = isLight ? '#EAF1F8' : '#0c0c0c';
       ctx.fillRect(0, 0, w, h);
 
       // Mode 1: Photo + Interactive ASCII X-Ray Lens on Hover
@@ -94,7 +95,7 @@ export default function PortraitCanvas() {
         ctx.arc(lensX, lensY, lensR, 0, Math.PI * 2);
         ctx.clip();
 
-        ctx.fillStyle = '#090909';
+        ctx.fillStyle = isLight ? '#DFE9F3' : '#090909';
         ctx.fillRect(lensX - lensR, lensY - lensR, lensR * 2, lensR * 2);
 
         if (mapRef.current.ready) {
@@ -105,14 +106,17 @@ export default function PortraitCanvas() {
             for (let x = Math.max(0, Math.floor((lensX - lensR) / 6) * 6); x < Math.min(w, lensX + lensR); x += 6) {
               const lum = sampleMapBilinear(mapRef.current, x / w, y / h);
               const idx = Math.min(chars.length - 1, Math.floor(lum * chars.length));
-              ctx.fillStyle = `rgba(245,245,245,${0.25 + lum * 0.75})`;
+              ctx.fillStyle = isLight
+                ? `rgba(90,98,117,${0.35 + lum * 0.65})`
+                : `rgba(183,183,183,${0.25 + lum * 0.75})`;
               ctx.fillText(chars[idx], x, y);
             }
           }
         }
 
-        ctx.strokeStyle = 'rgba(255,255,255,0.45)';
-        ctx.lineWidth = 1.2;
+        // Lens ring: Glacier Blue in both light & dark themes
+        ctx.strokeStyle = isLight ? '#0284C7' : '#BFE9FF';
+        ctx.lineWidth = 1.6;
         ctx.stroke();
         ctx.restore();
 
@@ -136,12 +140,16 @@ export default function PortraitCanvas() {
 
             if (portraitMode === 'halftone') {
               const barH = Math.max(0.8, lum * (stepY - 1.0));
-              ctx.fillStyle = `rgba(242,242,239,${0.15 + lum * 0.85})`;
+              ctx.fillStyle = isLight
+                ? `rgba(90,98,117,${0.25 + lum * 0.75})`
+                : `rgba(183,183,183,${0.15 + lum * 0.85})`;
               ctx.fillRect(x, y + (stepY - barH) * 0.5, stepX - 0.8, barH);
             } else {
               const cIdx = Math.min(chars.length - 1, Math.floor(lum * chars.length));
               if (cIdx > 0) {
-                ctx.fillStyle = `rgba(242,242,239,${0.2 + lum * 0.8})`;
+                ctx.fillStyle = isLight
+                  ? `rgba(90,98,117,${0.3 + lum * 0.7})`
+                  : `rgba(183,183,183,${0.2 + lum * 0.8})`;
                 ctx.fillText(chars[cIdx], x, y);
               }
             }

@@ -33,11 +33,11 @@ export default function ProjectsGrid() {
   ];
 
   return (
-    <section id="projects" className="py-16 border-t border-white/10">
+    <section id="projects" className="py-16 border-t border-glacier/30">
       <ScrollReveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
         <div>
-          <div className="font-mono text-xs text-neutral-400 mb-2">... /Selected_Projects ...</div>
-          <h2 className="font-mono text-3xl sm:text-5xl font-bold tracking-tight">
+          <div className="font-mono text-xs text-ultraviolet font-bold mb-2">... /Selected_Projects ...</div>
+          <h2 className="font-mono text-3xl sm:text-5xl font-bold tracking-tight text-ultraviolet drop-shadow-[0_2px_20px_rgba(111,61,255,0.25)]">
             Projects
           </h2>
         </div>
@@ -53,8 +53,8 @@ export default function ProjectsGrid() {
                 onClick={() => setFilter(btn.id)}
                 className={
                   isActive
-                    ? 'proj-filter-btn px-3.5 py-1.5 rounded-full bg-white text-black font-medium transition duration-200 transform scale-105 shadow-md'
-                    : 'proj-filter-btn px-3.5 py-1.5 rounded-full border border-white/15 text-neutral-300 hover:border-white/40 hover:text-white transition duration-200 active:scale-95'
+                    ? 'proj-filter-btn px-3.5 py-1.5 rounded-full bg-ultraviolet text-white font-semibold transition duration-200 transform scale-105 shadow-[0_4px_16px_rgba(111,61,255,0.35)]'
+                    : 'proj-filter-btn px-3.5 py-1.5 rounded-full border border-glacier bg-white text-ultraviolet hover:bg-glacier/40 transition duration-200 active:scale-95 shadow-xs font-semibold'
                 }
               >
                 {btn.label}
@@ -76,32 +76,32 @@ export default function ProjectsGrid() {
             <article
               data-proj-id={proj.id}
               onClick={() => handleProjectClick(proj)}
-              className="project-card scanline-card group cursor-pointer rounded-3xl border border-white/15 bg-[#151515] hover:bg-[#1a1a1a] hover:border-white/40 p-6 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_16px_36px_rgba(0,0,0,0.7)] h-full active:scale-[0.99]"
+              className="project-card scanline-card group cursor-pointer rounded-3xl border border-glacier/70 bg-white hover:bg-white/95 hover:border-ultraviolet p-6 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_16px_36px_rgba(111,61,255,0.15)] h-full active:scale-[0.99] shadow-md"
             >
               <div>
-                <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 mb-3">
-                  <span className="group-hover:text-neutral-200 transition-colors">0{idx + 1} // {proj.category.toUpperCase()}</span>
-                  <span>{proj.year}</span>
+                <div className="flex items-center justify-between text-[11px] font-mono text-ultraviolet mb-3 font-bold">
+                  <span className="group-hover:text-ultraviolet transition-colors">0{idx + 1} // {proj.category.toUpperCase()}</span>
+                  <span className="text-[#64748B] font-medium">{proj.year}</span>
                 </div>
-                <pre className="mb-4 p-3 rounded-2xl bg-black/85 border border-white/10 group-hover:border-white/20 font-mono text-[11px] leading-tight text-neutral-300 group-hover:text-white transition overflow-x-auto select-none">
+                <pre className="mb-4 p-3 rounded-2xl bg-[#0e0e16] border border-glacier/25 group-hover:border-glacier/40 font-mono text-[11px] leading-tight text-mineral group-hover:text-glacier transition overflow-x-auto select-none shadow-inner">
                   {proj.asciiPreview.join('\n')}
                 </pre>
-                <h3 className="font-mono text-base sm:text-lg font-bold text-white group-hover:underline decoration-white/40 underline-offset-4 transition-colors">
+                <h3 className="font-mono text-base sm:text-lg font-bold text-[#0F172A] group-hover:text-ultraviolet group-hover:underline decoration-glacier underline-offset-4 transition-colors">
                   {proj.title}
                 </h3>
-                <p className="mt-2 text-xs sm:text-sm text-neutral-400 leading-relaxed group-hover:text-neutral-300 transition-colors">
+                <p className="mt-2 text-xs sm:text-sm text-[#475569] leading-relaxed group-hover:text-[#1E293B] transition-colors font-medium">
                   {proj.summary}
                 </p>
               </div>
-              <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between gap-2">
+              <div className="mt-5 pt-4 border-t border-glacier/30 flex items-center justify-between gap-2">
                 <div className="flex flex-wrap gap-1.5">
                   {proj.tech.map((t) => (
-                    <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[10px] text-neutral-300 group-hover:border-white/25 transition-colors">
+                    <span key={t} className="px-2 py-0.5 rounded bg-glacier/35 border border-glacier font-mono text-[10px] text-ultraviolet font-bold group-hover:border-ultraviolet transition-colors">
                       {t}
                     </span>
                   ))}
                 </div>
-                <span className="w-8 h-8 rounded-full border border-white/20 group-hover:bg-white group-hover:text-black flex items-center justify-center font-mono text-xs transition duration-200 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 shadow">
+                <span className="w-8 h-8 rounded-full border border-glacier bg-white text-ultraviolet group-hover:bg-ultraviolet group-hover:text-white flex items-center justify-center font-mono text-xs transition duration-200 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 shadow-xs font-bold">
                   ↗
                 </span>
               </div>
