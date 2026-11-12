@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0e0e0e;
+  --bg-elevated: #161616;
+  --text-primary: #f3f3f3;
+  --text-muted: #8c8c8c;
+  --border-subtle: rgba(255, 255, 255, 0.14);
+  --border-faint: rgba(255, 255, 255, 0.07);
+}
+
+html.light-theme {
+  --bg-primary: #f4f4f1;
+  --bg-elevated: #ffffff;
+  --text-primary: #111111;
+  --text-muted: #555555;
+  --border-subtle: rgba(0, 0, 0, 0.15);
+  --border-faint: rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* Decorative orbital circles strictly matching Reference 2 (Nikita Khvatov) */
+.orbital-circle {
+  border: 1px solid var(--border-faint);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0b0b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Work experience row hover/active inversion (Reference 2 exact style) */
+.work-row {
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-row:hover,
+.work-row.active-row {
+  background-color: #f3f3f3;
+  color: #0d0d0d;
+}
+
+html.light-theme .work-row:hover,
+html.light-theme .work-row.active-row {
+  background-color: #111111;
+  color: #f3f3f3;
+}
+
+.work-row:hover .work-muted,
+.work-row.active-row .work-muted {
+  color: #4a4a4a;
+}
+
+html.light-theme .work-row:hover .work-muted,
+html.light-theme .work-row.active-row .work-muted {
+  color: #b0b0b0;
+}
+
+.scanline-card {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(255, 255, 255, 0.022) 3px,
+    rgba(255, 255, 255, 0.022) 4px
+  );
+}
+
+.social-pill {
+  border: 1px solid var(--border-subtle);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-pill:hover {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.12);
+}
+
+/* Interactive Card Elevation & Micro-interactions */
+.interactive-card {
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.25s ease;
+}
+
+.interactive-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px -8px rgba(0, 0, 0, 0.7);
+}
+
+/* Stagger animation delay helper classes */
+.animate-delay-75 { animation-delay: 75ms; }
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-150 { animation-delay: 150ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-250 { animation-delay: 250ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-350 { animation-delay: 350ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+
+/* Accessibility: Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
